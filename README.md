@@ -1,5 +1,5 @@
 # conference_organiser
-This is the conference organiser for [#RSEAA24](https://rseaa.github.io/).
+This is the conference organiser for [#RSEAA24](https://rseaa.github.io/). You can also have a look at RSEAA23 and RSEAA22 on the same website.
 
 We are just starting so there isn't much information.
 
