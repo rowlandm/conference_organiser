@@ -48,8 +48,9 @@ source venv/bin/activate
 ```
 ## Install FastAPI and uvicorn
 ```
-pip install flask
+pip install flask sqlalchemy psycopg2-binary typing
 pip install uvicorn[standard]
+
 ```
 
 >Make sure the virtual environment is activated.
