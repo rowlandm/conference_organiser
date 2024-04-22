@@ -2,17 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from './api'
 
-// async function loginUser(credentials) {
-//   return fetch('http://localhost:8000/token', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(credentials)
-//   })
-//     .then(data => data.json())
-//  }
-
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -20,8 +9,6 @@ function LoginPage() {
   const navigate = useNavigate();  // Updated to useNavigate
   var FormData = require('form-data');
  
-  
-
 
   const login =  async event => {
     event.preventDefault();
@@ -36,8 +23,6 @@ function LoginPage() {
     if (response.data.state === "success") {
       alert('Login successful!');
     
-    // if (response.state === "success") {
-    //   alert('Login successful!');
       // Redirect to another page or update authenticated state
       navigate('/home');  // Updated to use navigate
     } else {
