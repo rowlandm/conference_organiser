@@ -48,7 +48,7 @@ source venv/bin/activate
 ```
 ## Install FastAPI and uvicorn
 ```
-pip install flask sqlalchemy psycopg2-binary typing
+pip install fastapi sqlalchemy psycopg2-binary typing
 pip install uvicorn[standard]
 
 ```
