@@ -9,6 +9,10 @@ from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from typing_extensions import Annotated
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
 
 # Constants for JWT
 SECRET_KEY = '7b48dq4un9cq7igf0gy4ue8wuk9gf'
@@ -19,6 +23,15 @@ bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
 app = FastAPI()
+origins = ["http://localhost:3000"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ['*'],
+    allow_headers=['*']
+
+    )
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -96,7 +109,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     access_token = create_access_token(
         data={"sub": user.user_name}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "state": "success"}
 
 
 # Get current user from token

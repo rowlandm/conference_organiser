@@ -1,19 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from './api'
+
+// async function loginUser(credentials) {
+//   return fetch('http://localhost:8000/token', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(credentials)
+//   })
+//     .then(data => data.json())
+//  }
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();  // Updated to useNavigate
+  var FormData = require('form-data');
+ 
   
-  const login = (event) => {
+
+
+  const login =  async event => {
     event.preventDefault();
-    if (username === 'admin@admin.com' && password === 'admin') {
+   
+    const data = new FormData();
+    
+    data.append('username', username);
+    data.append('password', password);
+    const response = await api.post('/token',data)
+    .catch(error => console.error(error));
+    console.log(response.data.state)
+    if (response.data.state === "success") {
       alert('Login successful!');
+    
+    // if (response.state === "success") {
+    //   alert('Login successful!');
       // Redirect to another page or update authenticated state
       navigate('/home');  // Updated to use navigate
     } else {
+      alert("Invalid username or password");
       setErrorMessage('Invalid username or password, please try again!');
     }
   };
