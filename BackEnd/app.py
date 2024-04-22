@@ -28,6 +28,7 @@ def get_db():
 
 # db_dependency = Annotated[Session,Depends(get_db())]
 
+
 @app.get("/users/{user_id}")
 async def get_user(user_id:int, db:Session = Depends(get_db)):
     result = db.query(models.User).filter(models.User.id == user_id).first()
@@ -36,13 +37,6 @@ async def get_user(user_id:int, db:Session = Depends(get_db)):
     
     return result
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello Aliens!!"}
-    
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
 
 # Dependency to get the database session
 def get_db():
