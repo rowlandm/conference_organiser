@@ -6,7 +6,7 @@ from typing import List
 from sqlalchemy.orm import Session
 
 app = FastAPI()
-
+models.Base.metadata.create_all(bind=engine)
 def get_db():
     db = SessionLocal()
     try:
