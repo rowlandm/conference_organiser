@@ -1,10 +1,14 @@
+
 from datetime import datetime, timedelta
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
-from database import SessionLocal, database, User  # Import your database setup
+import models 
+from database import engine,SessionLocal
+from pydantic import BaseModel
+from typing import List
 
 # Constants for JWT
 SECRET_KEY = '7b48dq4un9cq7igf0gy4ue8wuk9gf'
@@ -14,7 +18,27 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
+
 app = FastAPI()
+models.Base.metadata.create_all(bind=engine)
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# db_dependency = Annotated[Session,Depends(get_db())]
+
+
+@app.get("/users/{user_id}")
+async def get_user(user_id:int, db:Session = Depends(get_db)):
+    result = db.query(models.User).filter(models.User.id == user_id).first()
+    if not result:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return result
+
 
 
 # Dependency to get the database session
