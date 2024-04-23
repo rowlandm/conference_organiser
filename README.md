@@ -49,6 +49,8 @@ source venv/bin/activate
 ## Install FastAPI and uvicorn
 ```
 pip install fastapi sqlalchemy psycopg2-binary typing
+pip install "python-jose[cryptography]"
+pip install "passlib[bcrypt]"
 pip install uvicorn[standard]
 
 ```
