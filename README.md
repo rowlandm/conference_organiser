@@ -1,7 +1,7 @@
 # conference_organiser
 This is the conference organiser for [#RSEAA24](https://rseaa.github.io/). You can also have a look at RSEAA23 and RSEAA22 on the same website.
 
-# Installation
+# Installation -- Ignore if you use the existed virtual machine instance
 To begin, please follow the steps below for installing Python and setting up the virtual environment:
 
 ## Install Python
