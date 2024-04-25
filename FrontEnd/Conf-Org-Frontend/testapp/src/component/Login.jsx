@@ -19,7 +19,7 @@ function LoginPage() {
     data.append('password', password);
     const response = await api.post('/token',data)
     .catch(error => console.error(error));
-    console.log(response.data.state)
+    // console.log(response.data.state)
     if (response.data.state === "success") {
       alert('Login successful!');
     
