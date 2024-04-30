@@ -61,6 +61,7 @@ async def createCandidate(db:db_dependency, create_Candidate_Request: createCand
     )
     db.add(create_cand_model)
     db.commit()
+    return "success"
 
 @router.post("/addRole",status_code = status.HTTP_201_CREATED)
 async def createRole(db:db_dependency, create_Role_Request: createRoles):
@@ -73,6 +74,7 @@ async def createRole(db:db_dependency, create_Role_Request: createRoles):
     )
     db.add(create_role_model)
     db.commit()
+    return "success"
 
 
 def convert_to_dict(candidate):
@@ -113,4 +115,3 @@ async def get_candidates_by_role(role: str,db:Session = Depends(get_db),skip: in
     if not roles:
         raise HTTPException(status_code=404, detail=f"No candidates with role '{role}' found")
     return [convert_to_dict(candidate) for candidate in roles]
-

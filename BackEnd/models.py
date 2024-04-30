@@ -19,7 +19,7 @@ class Candidate(Base):
     candidate_name = Column(String,unique = True)
     candidate_email = Column(String)
     candidate_org = Column(String)
-    candidate_origin = Column(String)
+    candidate_origin = Column(String)s
     reach_difficulty  = Column(Integer)
     subscribe = Column(Boolean)
 
@@ -29,10 +29,10 @@ class Candidate(Base):
 class Role(Base):
     __tablename__ = 'Role'
     id = Column(Integer, primary_key = True)
-    role = Column(String)
+    role = Column(String) # keynote speaker, sponser, session chair, stakeholder
     status = Column(String)
-    rank = Column(Integer)
-    area = Column(String)
+    rank = Column(Integer) # 0 for nor role candidate
+    area = Column(String) 
     cname = Column(String, ForeignKey(Candidate.candidate_name))
 
     # candis = relationship("Candidate", back_populates = "id")
