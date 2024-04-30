@@ -15,23 +15,25 @@ class User(Base):
 
 class Candidate(Base):
     __tablename__ = 'Candidate'
-    id = Column(Integer, primary_key = True, index = True, )
-    candidate_name = Column(String)
+    id = Column(Integer, primary_key = True, index = True)
+    candidate_name = Column(String,unique = True)
     candidate_email = Column(String)
     candidate_org = Column(String)
     candidate_origin = Column(String)
     reach_difficulty  = Column(Integer)
     subscribe = Column(Boolean)
 
-    roles = relationship("Role", back_populates = "rid")
+    # roles = relationship("Role", back_populates = "rid")
+    roles = relationship("Role", back_populates="candidate")
 
 class Role(Base):
     __tablename__ = 'Role'
-    rid = Column(Integer, primary_key = True)
-    role = Column(String, primary_key = True)
+    id = Column(Integer, primary_key = True)
+    role = Column(String)
     status = Column(String)
     rank = Column(Integer)
     area = Column(String)
-    cid = Column(Integer, ForeignKey(Candidate.id))
+    cname = Column(String, ForeignKey(Candidate.candidate_name))
 
-    candis = relationship("Candidate", back_populates = "id")
+    # candis = relationship("Candidate", back_populates = "id")
+    candidate = relationship("Candidate", back_populates="roles")

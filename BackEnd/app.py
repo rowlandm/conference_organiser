@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from typing_extensions import Annotated
 from fastapi.middleware.cors import CORSMiddleware
-
+import candidate
 
 
 
@@ -23,6 +23,7 @@ bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
 app = FastAPI()
+app.include_router(candidate.router)
 origins = ["http://localhost:3000"]
 app.add_middleware(
     CORSMiddleware,
@@ -42,7 +43,7 @@ def get_db():
     finally:
         db.close()
 
-# db_dependency = Annotated[Session,Depends(get_db())]
+db_dependency = Annotated[Session,Depends(get_db())]
 class create_user_request(BaseModel):
     username:str
     password:str
@@ -83,7 +84,7 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
 
 
 # User creation endpoint
-@app.post("/")
+@app.post("/user-creation")
 async def create_user(db: db_dependency, create_user_request: create_user_request):
     create_user_model = models.User(
         user_name=create_user_request.username,
