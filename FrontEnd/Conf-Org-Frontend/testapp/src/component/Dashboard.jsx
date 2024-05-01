@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Form, Input, Modal, Select,InputNumber} from 'antd';
+import {Button, Form, Input, Modal, Select,InputNumber,Space} from 'antd';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import '../style.css'; 
 import api from './api'
 
-const MailingManagementHomepage = () => {
+const Dashboard = () => {
   const [activeButton, setActiveButton] = useState(null);
   const [showAdditionalInput, setShowAdditionalInput] = useState(false);
 
@@ -124,9 +124,16 @@ const MailingManagementHomepage = () => {
         {/* Correct the onClick event handler to use an arrow function */}
         
       <div className="button-container">
-        <div className={`column ${activeButton === 'column1' ? 'active' : ''}`}>
-          <Button id="column1" className="button1">
-            <Link to="/*">Speakers</Link> 
+      <Space
+        direction="vertical"
+        size={[8, 16]} wrap
+        style={{
+          display: 'flex',
+        }}
+      >
+        {/* <div className={`column ${activeButton === 'column1' ? 'active' : ''}`}> */}
+          <Button id="column1" className="button1" onClick={() => navigate('/speaker')}>
+            Speakers
           </Button>
           <Button id="column1" className="button2">
             <Link to="/*">Sponsors</Link> 
@@ -140,19 +147,35 @@ const MailingManagementHomepage = () => {
           <Button id="column1" className="button5">
             <Link to="/*">Potential Session Chairs</Link> 
           </Button>
-        </div>
-        <div className={`column ${activeButton === 'column2' ? 'active' : ''}`}>
+          
+        {/* </div> */}
+      </Space>
+      <Space
+        direction="vertical"
+        size={[8, 16]} wrap
+        style={{
+          display: 'flex',
+        }}
+      >
+        {/* <div className={`column ${activeButton === 'column2' ? 'active' : ''}`}> */}
           <Button id="column2" className="button6" onClick={open}>
             Add Candidate
           </Button>
-          
-        </div>
-        <div className={`column ${activeButton === 'column3' ? 'active' : ''}`}>
-        <Button id="column3" className="button12" onClick={() => navigate('/TemplateEdit')}>
+          <Button id="column2" className="button12" onClick={() => navigate('/TemplateEdit')}>
             {/* <Link to="/template edit">Template Edit</Link>  */}
             {/* <button ></button> */}
             Template Edit
           </Button>
+        {/* </div> */}
+
+      </Space>
+      <Space
+        direction="vertical"
+        size={[8, 16]} wrap
+        style={{
+          display: 'flex',
+        }}
+      >
           <Button id="column3" className="button11">
             <Link to="https://rseaa.github.io/" target="_blank">RSE 2024 </Link> 
           </Button>
@@ -172,8 +195,13 @@ const MailingManagementHomepage = () => {
             <Link to="https://wehieduau.sharepoint.com/:x:/r/sites/StudentInternGroupatWEHI/Shared%20Documents/Conference%20Organiser/Synthetic%20data/Regular%20meetings%20email%20list%20for%20RSE-AUNZ.xlsx?d=waea606c03cf746c9a07ddcca80f8a96e&csf=1&web=1&e=fHQOj3"
             target="_blank">
               Emailing List Regular Meeting</Link> 
-          </Button>
-        </div>
+          </Button>     
+
+
+      </Space>
+        
+        {/* <div className={`column ${activeButton === 'column3' ? 'active' : ''}`}>
+        </div> */}
       </div>
       <Modal 
           wrapClassName="modal-wrap"
@@ -243,10 +271,10 @@ const MailingManagementHomepage = () => {
               rules={[{ required: true, message: 'Please select role!' }]}
             >
               <Select onChange={handleSelectChange}>
-                <Select.Option value="keynote speaker">Keynote Speaker</Select.Option>
+                <Select.Option value="keynote-speaker">Keynote Speaker</Select.Option>
                 <Select.Option value="sponser">Sponser</Select.Option>
                 <Select.Option value="stakeholder">Stakeholder</Select.Option>
-                <Select.Option value="session chair">Session Chair</Select.Option>
+                <Select.Option value="session-chair">Session Chair</Select.Option>
                 <Select.Option value="panalist">Panalist</Select.Option>
                 <Select.Option value={0}>Other</Select.Option>
               </Select>
@@ -304,4 +332,4 @@ const MailingManagementHomepage = () => {
   );
 };
 
-export default MailingManagementHomepage;
+export default Dashboard;
