@@ -5,10 +5,12 @@ This is the conference organiser for [#RSEAA24](https://rseaa.github.io/). You c
 To begin, please follow the steps below for installing Python and setting up the virtual environment:
 
 ## Install Python
+`sudo apt install python3`
+
 Download the latest version of Python from the official website.
 [Download Here](https://www.python.org/)
 
-# Windows
+# Windows (for local use)
 Follow the installation instructions provided, ensuring that Python is added to the system PATH.
 ## Install virtualenv
 Open the command prompt.
@@ -46,7 +48,7 @@ python3 -m venv venv
 ```
 source venv/bin/activate
 ```
-## Install FastAPI and uvicorn
+# Install FastAPI and uvicorn
 ```
 pip install fastapi sqlalchemy psycopg2-binary typing
 pip install "python-jose[cryptography]"
