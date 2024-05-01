@@ -19,16 +19,23 @@ function LoginPage() {
     data.append('password', password);
     const response = await api.post('/token',data)
     .catch(error => console.error(error));
-    // console.log(response.data.state)
-    if (response.data.state === "success") {
-      alert('Login successful!');
-    
-      // Redirect to another page or update authenticated state
-      navigate('/home');  // Updated to use navigate
-    } else {
+    console.log(response)
+    try{
+      if (response.data.state === "success") {
+        alert('Login successful!');
+      
+        // Redirect to another page or update authenticated state
+        navigate('/dashboard');  // Updated to use navigate
+      } else {
+        alert("Invalid username or password");
+        setErrorMessage('Invalid username or password, please try again!');
+      }
+
+    }catch (e){
       alert("Invalid username or password");
       setErrorMessage('Invalid username or password, please try again!');
     }
+    
   };
 
   return (

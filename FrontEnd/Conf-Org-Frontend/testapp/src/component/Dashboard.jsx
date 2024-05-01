@@ -154,17 +154,24 @@ const MailingManagementHomepage = () => {
             Template Edit
           </Button>
           <Button id="column3" className="button11">
-            <Link to="/*">RSE 2023 materials</Link> 
+            <Link to="https://rseaa.github.io/" target="_blank">RSE 2024 </Link> 
           </Button>
           
           <Button id="column3" className="button13">
-            <Link to="/marketing plan">Marketing Plan</Link> 
+            <Link to="https://rseaa.github.io/marketing" target="_blank">RESAA 24 Marketing </Link> 
           </Button>
           <Button id="column3" className="button14">
-            <Link to="/event schedule">Event Schedule</Link> 
+            <Link to="https://github.com/rowlandm/conference_organiser" target="_blank">Projects GitHub</Link> 
           </Button>
           <Button id="column3" className="button15">
-            <Link to="/email list ubscribers">Email List Subscribers</Link> 
+            <Link to="https://wehieduau.sharepoint.com/:x:/r/sites/StudentInternGroupatWEHI/Shared%20Documents/Conference%20Organiser/Synthetic%20data/Synthetic%20data%20for%20Conference%20Organiser.xlsx?d=wdf3f22a44e2741daaeb6d2d3d839ce06&csf=1&web=1&e=Ep4uOO"
+            target="_blank">
+              Data for conference</Link> 
+          </Button>
+          <Button id="column3" className="button16">
+            <Link to="https://wehieduau.sharepoint.com/:x:/r/sites/StudentInternGroupatWEHI/Shared%20Documents/Conference%20Organiser/Synthetic%20data/Regular%20meetings%20email%20list%20for%20RSE-AUNZ.xlsx?d=waea606c03cf746c9a07ddcca80f8a96e&csf=1&web=1&e=fHQOj3"
+            target="_blank">
+              Emailing List Regular Meeting</Link> 
           </Button>
         </div>
       </div>
