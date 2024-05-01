@@ -19,7 +19,7 @@ class Candidate(Base):
     candidate_name = Column(String,unique = True)
     candidate_email = Column(String)
     candidate_org = Column(String)
-    candidate_origin = Column(String)s
+    candidate_origin = Column(String)
     reach_difficulty  = Column(Integer)
     subscribe = Column(Boolean)
 
