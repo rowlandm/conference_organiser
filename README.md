@@ -5,8 +5,9 @@ This is the conference organiser for [#RSEAA24](https://rseaa.github.io/). You c
 To begin, please follow the steps below for installing Python and setting up the virtual environment:
 
 ## Install Python
-Download the latest version of Python from the official website.
 `sudo apt install python3`
+
+Download the latest version of Python from the official website.
 [Download Here](https://www.python.org/)
 
 # Windows (for local use)
