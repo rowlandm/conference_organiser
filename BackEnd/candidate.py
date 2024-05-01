@@ -108,10 +108,10 @@ def convert_to_dict(role):
     
 
 # # Return specific candidates based on roles
-@router.get("/candidates/role/{role}", response_model=List[createRoles])
-async def get_candidates_by_role(role: str,db:Session = Depends(get_db),skip: int = 0):
-    roles = db.query(models.Role).filter(models.Role.role == role.lower()).all()
-    print(roles[0].rank)
+@router.get("/candidates/{role}", response_model=List[createRoles])
+async def get_candidates_by_role(role: str,db:Session = Depends(get_db)):
+    roles = db.query(models.Role).filter(models.Role.role == role.lower()).join(models.Candidate).all()
+    print(roles[0])
     if not roles:
         raise HTTPException(status_code=404, detail=f"No candidates with role '{role}' found")
     return [convert_to_dict(candidate) for candidate in roles]
