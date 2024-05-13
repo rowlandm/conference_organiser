@@ -126,14 +126,9 @@ def convert_to_dict_role(role):
 @router.get("/candidates/{role}", response_model=List[createJoin])
 async def get_candidates_by_role(role: str,db:Session = Depends(get_db)):
     roles = db.query(models.Role,models.Candidate).filter(models.Role.role == role.lower()).join(models.Candidate, models.Role.cname == models.Candidate.candidate_name).all()
-    # roles = db.query(models.Role,models.Candidate).filter(models.Role.role == role.lower()).options(joinedload(models.Role.candidate)).all()
     print(roles[0])
-    # dic = convert_to_dict_can(roles[0][1])
-    # dic = ()
     ls = []
     for each in roles:
-    #     print(convert_to_dict_can(each[1]))
-    #     print(convert_to_dict_role(each[0]))
         dic = { **convert_to_dict_role(each[0]), **convert_to_dict_can(each[1])}
         ls.append(dic)
             
