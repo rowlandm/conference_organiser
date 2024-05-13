@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from typing_extensions import Annotated
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import sessionmaker, relationship, joinedload
 
 
 router = APIRouter(
@@ -35,6 +36,20 @@ class createCandidates(BaseModel):
     class Config:
         orm_mode = True
         from_attributes = True
+
+class createJoin(BaseModel):
+    name :str
+    email :str
+    org :str
+    origin :str
+    difficulty  :int
+    subscribe :bool
+    role : str
+    status :str
+    rank : str
+    area :str
+    cname : str
+
 
 def get_db():
     db = SessionLocal()
@@ -77,7 +92,7 @@ async def createRole(db:db_dependency, create_Role_Request: createRoles):
     return "success"
 
 
-def convert_to_dict(candidate):
+def convert_to_dict_can(candidate):
     return {
         "name": candidate.candidate_name,
         "email": candidate.candidate_email,
@@ -94,10 +109,10 @@ async def get_all_candidates(db:Session = Depends(get_db),skip: int = 0):
     if not results:
         raise HTTPException(status_code=404, detail="User not found")
     
-    return [convert_to_dict(candidate) for candidate in results]
+    return [convert_to_dict_can(candidate) for candidate in results]
 
 
-def convert_to_dict(role):
+def convert_to_dict_role(role):
     return {
         "role": role.role,
         "status": role.status,
@@ -105,13 +120,25 @@ def convert_to_dict(role):
         "area": role.area,
         "cname": role.cname,
     }
-    
+
 
 # # Return specific candidates based on roles
-@router.get("/candidates/{role}", response_model=List[createRoles])
+@router.get("/candidates/{role}", response_model=List[createJoin])
 async def get_candidates_by_role(role: str,db:Session = Depends(get_db)):
-    roles = db.query(models.Role).filter(models.Role.role == role.lower()).join(models.Candidate).all()
+    roles = db.query(models.Role,models.Candidate).filter(models.Role.role == role.lower()).join(models.Candidate, models.Role.cname == models.Candidate.candidate_name).all()
+    # roles = db.query(models.Role,models.Candidate).filter(models.Role.role == role.lower()).options(joinedload(models.Role.candidate)).all()
     print(roles[0])
+    # dic = convert_to_dict_can(roles[0][1])
+    # dic = ()
+    ls = []
+    for each in roles:
+    #     print(convert_to_dict_can(each[1]))
+    #     print(convert_to_dict_role(each[0]))
+        dic = { **convert_to_dict_role(each[0]), **convert_to_dict_can(each[1])}
+        ls.append(dic)
+            
+    print(ls)
+
     if not roles:
         raise HTTPException(status_code=404, detail=f"No candidates with role '{role}' found")
-    return [convert_to_dict(candidate) for candidate in roles]
+    return ls
